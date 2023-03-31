@@ -1,0 +1,362 @@
+{
+    "cuenta_cargo": {
+        "BCI": {
+            "id": 1,
+            "name": "Nº Cuenta de Cargo"
+        },
+        "santander": {
+            "id": 1,
+            "name": "Cta_origen"
+        },
+        "chile_transmasivas": {
+            "id": 3,
+            "name": "cuenta_cargo"
+        }
+    },
+    "cuenta_destino": {
+        "BCI": {
+            "id": 2,
+            "name": "Nº Cuenta de Destino"
+        },
+        "chile_masivos": {
+            "id": 12,
+            "name": "cuenta_destino"
+        },
+        "santander": {
+            "id": 3,
+            "name": "Cta_destino"
+        },
+        "bice": {
+            "id": 3,
+            "name": "cuenta_destino"
+        },
+        "chile_transmasivas": {
+            "id": 6,
+            "name": "cuenta_destino"
+        }
+    },
+    "banco_destino_codigo": {
+        "BCI": {
+            "id": 3,
+            "name": "Banco Destino"
+        },
+        "chile_masivos": {
+            "id": 11,
+            "name": "banco_destino_codigo"
+        },
+        "santander": {
+            "id": 5,
+            "name": "Cod_banco"
+        },
+        "bice": {
+            "id": 5,
+            "name": "banco_destino_codigo"
+        },
+        "chile_transmasivas": {
+            "id": 7,
+            "name": "banco_destino_rut_con_dv"
+        }
+    },
+    "rut_beneficiario_sin_dv": {
+        "BCI": {
+            "id": 4,
+            "name": "Rut Beneficiario"
+        },
+        "chile_masivos": {
+            "id": 7,
+            "name": "rut_beneficiario_sin_dv"
+        }
+    },
+    "rut_beneficiario_dv": {
+        "BCI": {
+            "id": 5,
+            "name": "Dig. Verif. Beneficiario"
+        },
+        "chile_masivos": {
+            "id": 8,
+            "name": "rut_beneficiario_dv"
+        }
+    },
+    "rut_beneficiario_con_dv": {
+        "santander": {
+            "id": 6,
+            "name": "RUT benef."
+        },
+        "bice": {
+            "id": 2,
+            "name": "rut_beneficiario_con_dv"
+        },
+        "chile_transmasivas": {
+            "id": 4,
+            "name": "rut_beneficiario_con_dv"
+        }
+    },
+    "nombre_beneficiario": {
+        "BCI": {
+            "id": 6,
+            "name": "Nombre Beneficiario"
+        },
+        "chile_masivos": {
+            "id": 9,
+            "name": "nombre_beneficiario"
+        },
+        "santander": {
+            "id": 7,
+            "name": "nombre benef."
+        },
+        "bice": {
+            "id": 1,
+            "name": "nombre_beneficiario"
+        },
+        "chile_transmasivas": {
+            "id": 5,
+            "name": "nombre_beneficiario"
+        }
+    },
+    "monto_transferencia": {
+        "BCI": {
+            "id": 7,
+            "name": "Monto Transferencia"
+        },
+        "chile_masivos": {
+            "id": 13,
+            "name": "monto_transferencia"
+        },
+        "santander": {
+            "id": 8,
+            "name": "Mto Total"
+        },
+        "bice": {
+            "id": 4,
+            "name": "monto_transferencia"
+        },
+        "chile_transmasivas": {
+            "id": 8,
+            "name": "monto_transferencia"
+        }
+    },
+    "factura_boleta_num": {
+        "BCI": {
+            "id": 8,
+            "name": "Nro.Factura Boleta (1)"
+        }
+    },
+    "ordencompra_num": {
+        "BCI": {
+            "id": 9,
+            "name": "Nº Orden de Compra(1)"
+        }
+    },
+    "tipo_pago": {
+        "BCI": {
+            "id": 10,
+            "name": "Tipo de Pago(2)"
+        }
+    },
+    "mensaje_destinatario": {
+        "BCI": {
+            "id": 11,
+            "name": "Mensaje Destinatario (3)"
+        },
+        "chile_masivos": {
+            "id": 19,
+            "name": "mensaje_destinatario"
+        },
+        "santander": {
+            "id": 9,
+            "name": "Glosa TEF"
+        },
+        "bice": {
+            "id": 10,
+            "name": "mensaje_destinatario"
+        },
+        "chile_transmasivas": {
+            "id": 10,
+            "name": "motivo_transferencia"
+        }
+    },
+    "email_destinatario": {
+        "BCI": {
+            "id": 12,
+            "name": "Email Destinatario(3)"
+        },
+        "chile_masivos": {
+            "id": 18,
+            "name": "email_destinatario"
+        },
+        "santander": {
+            "id": 10,
+            "name": "Correo"
+        },
+        "chile_transmasivas": {
+            "id": 13,
+            "name": "email_destinatario"
+        }
+    },
+    "alias": {
+        "BCI": {
+            "id": 13,
+            "name": "Cuenta Destino inscrita como(4)"
+        }
+    },
+    "tipo_registro_beneficiario": {
+        "chile_masivos": {
+            "id": 1,
+            "name": "tipo_registro_beneficiario"
+        }
+    },
+    "tipo_registro_mensaje": {
+        "chile_masivos": {
+            "id": 20,
+            "name": "tipo_registro_mensaje"
+        }
+    },
+    "rut_emisor_sin_dv": {
+        "chile_masivos": {
+            "id": 2,
+            "name": "rut_emisor_sin_dv"
+        }
+    },
+    "rut_emisor_dv": {
+        "chile_masivos": {
+            "id": 3,
+            "name": "rut_emisor_dv"
+        }
+    },
+    "rut_emisor_con_dv": {
+        "chile_transmasivas": {
+            "id": 2,
+            "name": "rut_cliente"
+        }
+    },
+    "convenio_numero": {
+        "chile_masivos": {
+            "id": 4,
+            "name": "convenio_numero"
+        }
+    },
+    "num_nomina": {
+        "chile_masivos": {
+            "id": 5,
+            "name": "num_nomina"
+        }
+    },
+    "medio_pago": {
+        "chile_masivos": {
+            "id": 6,
+            "name": "medio_pago"
+        },
+        "chile_transmasivas": {
+            "id": 1,
+            "name": "tipo_operacion"
+        }
+    },
+    "tipo_direccion": {
+        "chile_masivos": {
+            "id": 10,
+            "name": "tipo_direccion"
+        }
+    },
+    "numero_mensaje": {
+        "chile_masivos": {
+            "id": 14,
+            "name": "numero_mensaje"
+        }
+    },
+    "vale_vista_acumulado": {
+        "chile_masivos": {
+            "id": 15,
+            "name": "vale_vista_acumulado"
+        }
+    },
+    "correlativo_impresion": {
+        "chile_masivos": {
+            "id": 16,
+            "name": "correlativo_impresion"
+        }
+    },
+    "vale_vista_virtual": {
+        "chile_masivos": {
+            "id": 17,
+            "name": "vale_vista_virtual"
+        }
+    },
+    "tipo_aviso": {
+        "chile_masivos": {
+            "id": 21,
+            "name": "tipo_aviso"
+        }
+    },
+    "moneda_origen": {
+        "santander": {
+            "id": 2,
+            "name": "moneda_origen"
+        }
+    },
+    "moneda_destino": {
+        "santander": {
+            "id": 4,
+            "name": "moneda_destino"
+        },
+        "bice": {
+            "id": 7,
+            "name": "moneda_destino"
+        }
+    },
+    "glosa_correo": {
+        "santander": {
+            "id": 11,
+            "name": "Glosa correo"
+        },
+        "chile_transmasivas": {
+            "id": 12,
+            "name": "asunto_email"
+        }
+    },
+    "glosa_cartola_cliente": {
+        "santander": {
+            "id": 12,
+            "name": "Glosa Cartola Cliente"
+        }
+    },
+    "glosa_cartola_beneficiario": {
+        "santander": {
+            "id": 13,
+            "name": "Glosa Cartola Beneficiario"
+        }
+    },
+    "cuenta_destino_tipo": {
+        "bice": {
+            "id": 6,
+            "name": "cuenta_destino_tipo"
+        },
+        "chile_transmasivas": {
+            "id": 14,
+            "name": "cuenta_destino_tipo"
+        }
+    },
+    "oficina_origen": {
+        "bice": {
+            "id": 8,
+            "name": "oficina_origen"
+        }
+    },
+    "oficina_destino": {
+        "bice": {
+            "id": 9,
+            "name": "oficina_destino"
+        }
+    },
+    "tipo_abono_inmediato": {
+        "chile_transmasivas": {
+            "id": 9,
+            "name": "tipo_abono_inmediato"
+        }
+    },
+    "notificacion_por_email": {
+        "chile_transmasivas": {
+            "id": 11,
+            "name": "notificacion_por_email"
+        }
+    }
+}

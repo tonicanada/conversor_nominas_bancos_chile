@@ -1,0 +1,14 @@
+# Ignorar directorios build y conversor_nominas_bancos_chile.egg-info
+build/
+conversor_nominas_bancos_chile.egg-info/
+
+# Ignorar archivos de respaldo de Python y archivos pycache
+__pycache__/
+*.pyc
+
+# Ignorar archivos generados por setuptools/distutils
+dist/
+*.egg-info/
+
+# Ignorar ambiente virtual
+conversor_nominas_env/

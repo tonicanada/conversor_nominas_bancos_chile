@@ -1,0 +1,86 @@
+{
+    "1": {
+      "name": "Banco de Chile",
+      "rut": "97004000-5"
+    },
+    "9": {
+      "name": "International",
+      "rut": "97011000-3"
+    },
+    "12": {
+      "name": "Banco Estado",
+      "rut": "97030000-7"
+    },
+    "14": {
+      "name": "Scotiabank",
+      "rut": "97018000-1"
+    },
+    "16": {
+      "name": "BCI",
+      "rut": "97006000-6"
+    },
+    "17": {
+      "name": "Banco Do Brasil",
+      "rut": "97003000-K"
+    },
+    "27": {
+      "name": "Corpbanca",
+      "rut": "97023000-9"
+    },
+    "28": {
+      "name": "BICE",
+      "rut": "97080000-K"
+    },
+    "31": {
+      "name": "HSBC",
+      "rut": "97951000-4"
+    },
+    "33": {
+      "name": "Citibank",
+      "rut": "97008000-7"
+    },
+    "37": {
+      "name": "Santander",
+      "rut": "97036000-K"
+    },
+    "39": {
+      "name": "Itau",
+      "rut": "76645030-K"
+    },
+    "45": {
+      "name": "The Bank of Tokyo-Mitsubishi",
+      "rut": "59002220-9"
+    },
+    "49": {
+      "name": "Security",
+      "rut": "97053000-2"
+    },
+    "51": {
+      "name": "Falabella",
+      "rut": "96509660-4"
+    },
+    "53": {
+      "name": "Ripley",
+      "rut": "97947000-2"
+    },
+    "54": {
+      "name": "Rabobank",
+      "rut": "97949000-3"
+    },
+    "55": {
+      "name": "Consorcio",
+      "rut": "99500410-0"
+    },
+    "59": {
+      "name": "BTG Pactual",
+      "rut": "76362099-9"
+    },
+    "504": {
+      "name": "BBVA",
+      "rut": "97032000-8"
+    },
+    "672": {
+      "name": "COOPEUCH",
+      "rut": "82878900-7"
+    }
+  }
