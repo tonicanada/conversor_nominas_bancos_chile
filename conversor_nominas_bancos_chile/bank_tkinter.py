@@ -117,7 +117,7 @@ def add_convenios_empresa_pagosmasivos_bancochile(event):
     if selected == "Banco Chile (Pagos Masivos)":
         label_conveniosempresa.place(relx=0.5, y=350, anchor="center")
         combobox_conveniosempresa.place(
-            relx=0.5, y=380, anchor="center", width=200)
+            relx=0.5, y=370, anchor="center", width=200)
         update_combobox_values_by_function(combobox_conveniosempresa, bank_functions.get_conveniosbanco_pagosmasivos_bancochile_from_rut,
                                            entry_rutempresa.get(
                                            ), formatobanco_dict["Banco Chile (Pagos Masivos)"]['banco_codigo'],
@@ -306,5 +306,5 @@ label_conveniosempresa = ttk.Label(root, text="Convenios Banco")
 combobox_conveniosempresa = ttk.Combobox(
     root, state="readonly")
 
-
-root.mainloop()
+def iniciar_menu():
+    root.mainloop()

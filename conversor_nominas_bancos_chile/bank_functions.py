@@ -16,13 +16,13 @@ path_abs = os.path.dirname(__file__)
 # with open(os.path.join(path_abs, 'bancos_codigos.json'), encoding="utf-8") as f:
 #     bancos_codigos = json.load(f)
 
-with open(os.path.join(os.path.dirname(__file__), 'bancos_codigos.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'bancos_codigos.json'), encoding='utf-8') as f:
     bancos_codigos = json.loads(f.read())
 
 # Importa como diccionario los distintos encabezados que tienen las nóminas de los diferentes bancos de Chile.
 # with open(os.path.join(path_abs, 'bancos_headers_nomina.json'), encoding="utf-8") as f:
 #     dict_encabezados_nominas_banco = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'bancos_headers_nomina.json')) as f:
+with open(os.path.join(os.path.dirname(__file__), 'bancos_headers_nomina.json'), encoding='utf-8') as f:
     dict_encabezados_nominas_banco = json.loads(f.read())
 
 
