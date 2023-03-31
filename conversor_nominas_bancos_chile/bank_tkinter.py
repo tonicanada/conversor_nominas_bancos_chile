@@ -161,7 +161,7 @@ def btn_browsefile_datosempresas(entry_label):
         update_combobox_values_by_function(
             combobox_razonsocial, get_razonsociallist, entry_label.get())
     except:
-        pass
+        raise ValueError
 
 
 def btn_browsefile_inputpath(entry_label):
@@ -307,5 +307,4 @@ combobox_conveniosempresa = ttk.Combobox(
     root, state="readonly")
 
 
-def iniciar_menu():
-    root.mainloop()
+root.mainloop()

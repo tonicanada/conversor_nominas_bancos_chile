@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="conversor_nominas_bancos_chile",
-    version="1.6.8",
+    version="1.6.9",
     description="Librería que convierte el formato de nóminas del BCI al formato del resto de bancos.",
     author="Antonio Canada Momblant",
     author_email="toni.cm@gmail.com",
@@ -22,7 +22,9 @@ setup(
         'numpy',
         'datetime',
         'pathlib',
-        'tk'],
+        'tk',
+        'openpyxl',
+        'xlrd'],
     entry_points={
         'console_scripts': [
             'start_menu_conversor_nominas = conversor_nominas_bancos_chile.bank_tkinter_menu:iniciar_menu'
