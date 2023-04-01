@@ -161,7 +161,7 @@ def btn_browsefile_datosempresas(entry_label):
         update_combobox_values_by_function(
             combobox_razonsocial, get_razonsociallist, entry_label.get())
     except:
-        raise ValueError
+        pass
 
 
 def btn_browsefile_inputpath(entry_label):
