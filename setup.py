@@ -3,10 +3,10 @@ from pathlib import Path
 
 with Path(__file__).parent.joinpath("README.md").open(encoding="utf-8") as f:
     long_description = f.read()
-
+    
 setup(
     name="conversor_nominas_bancos_chile",
-    version="1.7.7",
+    version="1.7.8",
     description="Librería que convierte el formato de nóminas del BCI al formato del resto de bancos.",
     author="Antonio Canada Momblant",
     author_email="toni.cm@gmail.com",
@@ -35,4 +35,6 @@ setup(
         ]
     },
     long_description=long_description,
+    long_description_content_type='text/markdown',
+    url="https://github.com/tonicanada/conversor_nominas_bancos_chile"
 )
