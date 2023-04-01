@@ -4,6 +4,7 @@ Este programa convierte nóminas de transferencias con formato Banco BCI al rest
 
 Se debe tener en cuenta lo siguiente:
 * Se requiere crear un archivo excel con los datos de las cuentas corrientes de las empresas desde donde se realizarán las transferencias, se puede llamar "datos_empresas.xlsx" y tiene el siguiente formato:
+* Está pendiente implementar la transformación de nóminas a otros bancos que no sean Banco de Chile, Santander, BICE.
 
 | razonsocial                              | razonsocial_abreviatura   | rut         |   banco_codigo |   cuenta_num | convenios_pagos_masivos_bancochile                |
 |:-----------------------------------------|:--------------------------|:------------|---------------:|-------------:|:--------------------------------------------------|

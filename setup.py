@@ -1,10 +1,12 @@
-# -*- coding: utf-8 -*-
+from setuptools import setup
+from pathlib import Path
 
-from setuptools import setup, find_packages
+with Path(__file__).parent.joinpath("README.md").open(encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
     name="conversor_nominas_bancos_chile",
-    version="1.7.6",
+    version="1.7.7",
     description="Librería que convierte el formato de nóminas del BCI al formato del resto de bancos.",
     author="Antonio Canada Momblant",
     author_email="toni.cm@gmail.com",
@@ -32,4 +34,5 @@ setup(
             'start_menu_conversor_nominas = conversor_nominas_bancos_chile.bank_tkinter_menu:iniciar_menu'
         ]
     },
+    long_description=long_description,
 )

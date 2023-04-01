@@ -161,6 +161,8 @@ def btn_browsefile_datosempresas(entry_label):
         update_combobox_values_by_function(
             combobox_razonsocial, get_razonsociallist, entry_label.get())
     except:
+        entry_label.delete(0, END)
+        entry_label.insert(0, "")
         pass
 
 
@@ -181,6 +183,8 @@ def btn_browsefile_inputpath(entry_label):
             messagebox.showerror(
                 "error", "Nombre y cantidad de columnas del excel no coincide con el requerido por el BCI.")
     except:
+        entry_label.delete(0, END)
+        entry_label.insert(0, "")
         pass
 
 
