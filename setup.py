@@ -32,7 +32,4 @@ setup(
             'start_menu_conversor_nominas = conversor_nominas_bancos_chile.bank_tkinter_menu:iniciar_menu'
         ]
     },
-    data_files=[('data', ['conversor_nominas_bancos_chile/bancos_codigos.json',
-                 'conversor_nominas_bancos_chile/bancos_headers_nomina.json'])]
-
 )
