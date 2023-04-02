@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "conversor_nominas_bancos_chile"
+version = "1.8.2"
+description = "Librería que convierte el formato de nóminas del BCI al formato del resto de bancos."
+authors = [
+    "Antonio Canada Momblant <toni.cm@gmail.com>"
+]
+license = "MIT"
+readme = "README.md"
+
+repository = "https://github.com/tonicanada/conversor_nominas_bancos_chile"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.3"
+numpy = "^1.24.2"
+datetime = "^5.1"
+pathlib = "^1.0.1"
+tk = "^0.1.0"
+openpyxl = "^3.1.2"
+xlrd = "^2.0.1"
+
+[tool.poetry.scripts]
+start_menu_conversor_nominas = "conversor_nominas_bancos_chile.bank_tkinter_menu:iniciar_menu"
+
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
+
