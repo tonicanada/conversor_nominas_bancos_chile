@@ -146,6 +146,7 @@ def get_razonsociallist(path):
     except AttributeError as e:
         messagebox.showerror(
             "error", f"El archivo excel con los datos de las empresas no tiene el formato correcto. {e.args[0]}")
+        raise AttributeError
 
 
 def btn_browsefile_datosempresas(entry_label):
@@ -209,31 +210,32 @@ def btn_execution_function(path, rut_empresa, formato_requerido):
     Esta función es la que llama a la función correspondiente del archivo 'bank_functions.py'
     para obtener la nómina en la que el usuario ha indicado que necesita.
     """
-    try:
-        path = Path(path)
-        path_to_datosempresas = Path(entry_path_to_datosempresas.get())
-        if check_if_company_has_bankaccount(rut_empresa, formato_requerido, path_to_datosempresas):
-            if formato_requerido == "Banco Chile (Pagos Masivos)":
-                bank_functions.bci_to_bancochile_pagosmasivos(path,
-                                                              rut_empresa,
-                                                              combobox_conveniosempresa.get()[
-                                                                  :3],
-                                                              combobox_conveniosempresa.get()[
-                                                                  11:16]
-                                                              )
-            elif formato_requerido == "Banco Chile (Transf. Masivas)":
-                bank_functions.bci_to_bancochile_nomina_transferencias(
-                    path, rut_empresa, path_to_datosempresas)
-            elif formato_requerido == "Santander (Transf. Masivas)":
-                bank_functions.bci_to_santander_transferenciasmasivas(
-                    path, rut_empresa, path_to_datosempresas)
-            elif formato_requerido == "BICE (nóminas)":
-                bank_functions.bci_to_bice_nomina(
-                    path, rut_empresa, path_to_datosempresas)
-            messagebox.showinfo("Info", "Planilla generada correctamente.")
-    except Exception as e:
-        messagebox.showerror(
-            "Error", f"Favor revise que estén completos todos los campos.")
+    # try:
+    path = Path(path)
+    path_to_datosempresas = Path(entry_path_to_datosempresas.get())
+    if check_if_company_has_bankaccount(rut_empresa, formato_requerido, path_to_datosempresas):
+        if formato_requerido == "Banco Chile (Pagos Masivos)":
+            bank_functions.bci_to_bancochile_pagosmasivos(path,
+                                                            rut_empresa,
+                                                            path_to_datosempresas,
+                                                            combobox_conveniosempresa.get()[
+                                                                :3],
+                                                            combobox_conveniosempresa.get()[
+                                                                11:16]
+                                                            )
+        elif formato_requerido == "Banco Chile (Transf. Masivas)":
+            bank_functions.bci_to_bancochile_nomina_transferencias(
+                path, rut_empresa, path_to_datosempresas)
+        elif formato_requerido == "Santander (Transf. Masivas)":
+            bank_functions.bci_to_santander_transferenciasmasivas(
+                path, rut_empresa, path_to_datosempresas)
+        elif formato_requerido == "BICE (nóminas)":
+            bank_functions.bci_to_bice_nomina(
+                path, rut_empresa, path_to_datosempresas)
+        messagebox.showinfo("Info", "Planilla generada correctamente.")
+    # except Exception as e:
+    #     messagebox.showerror(
+    #         "Error", f"Favor revise que estén completos todos los campos.")
 
 
 def get_bottom_coordinate_from_widget(widget):

@@ -262,7 +262,7 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempre
     df_santander["RUT benef."] = df[rel_colcode_to_colbci["rut_beneficiario_sin_dv"]].astype(str) + df[
         rel_colcode_to_colbci["rut_beneficiario_dv"]].astype(str).str.lower()
     
-    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa)
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
     df_santander.to_excel(path.parent.joinpath(
         f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_stdr.xlsx"), index=False)
     return df_santander
@@ -389,6 +389,8 @@ def bci_to_bancochile_pagosmasivos(path, rut_empresa, path_to_datosempresas, con
         Descripción breve nómina
     """
     df = pd.read_excel(path)
+    
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
 
     # Generación del encabezado del archivo
     fecha_pago = date.today().strftime("%Y%m%d")
@@ -465,7 +467,7 @@ def bci_to_bancochile_pagosmasivos(path, rut_empresa, path_to_datosempresas, con
         df_chile_masivos["mensaje_destinatario"].str[:250].str.ljust(250, " ") + \
         " " * (2) + "000" + " " * 20
 
-    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
+    
     with open(path.parent.joinpath(f"{PurePosixPath(path).stem}{razonsocial_abreviatura}chilemasivos.txt"), 'w') as f:
         f.write(encabezado)
         f.write('\n')
