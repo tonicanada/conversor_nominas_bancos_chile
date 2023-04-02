@@ -231,7 +231,7 @@ def get_bankformat_from_bciformat(df_bcinomina, bankformat):
 # print(df.head(10).fillna("").to_markdown(index=False))
 # get_bankformat_from_bciformat(df, "santander")
 
-def bci_to_santander_transferenciasmasivas(path, rut_empresa, razonsocial_abreviatura, path_to_datosempresas):
+def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempresas):
     """
     Función que transforma una nómina en formato BCI al formato de "Transferencias Masivas" del Banco Santander.
 
@@ -241,8 +241,8 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, razonsocial_abrevi
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    razonsocial_abreviatura : str
-        Abreviatura de la razón social de la empresa que está realizando la transferencia.
+    path_to_datosempresas : str
+        Ruta hacia el excel con los datos de las cuentas de las empresas
     """
     df = pd.read_excel(path)
 
@@ -261,6 +261,8 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, razonsocial_abrevi
     df_santander["Glosa Cartola Beneficiario"] = df_santander["Glosa TEF"]
     df_santander["RUT benef."] = df[rel_colcode_to_colbci["rut_beneficiario_sin_dv"]].astype(str) + df[
         rel_colcode_to_colbci["rut_beneficiario_dv"]].astype(str).str.lower()
+    
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa)
     df_santander.to_excel(path.parent.joinpath(
         f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_stdr.xlsx"), index=False)
     return df_santander
@@ -269,7 +271,7 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, razonsocial_abrevi
 # df = bci_to_santander_transferenciasmasivas("./planillas_test/20230324_nominabci.xls", "./planillas_test/20230324_nominabci.xls", "762345312-2", "tecton")
 
 
-def bci_to_bice_nomina(path, razonsocial_abreviatura):
+def bci_to_bice_nomina(path, rut_empresa, path_to_datosempresas):
     """
     Función que transforma una nómina en formato BCI al formato banco BICE.
 
@@ -279,8 +281,8 @@ def bci_to_bice_nomina(path, razonsocial_abreviatura):
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    razonsocial_abreviatura : str
-        Abreviatura de la razón social de la empresa que está realizando la transferencia.
+    path_to_datosempresas : str
+        Ruta hacia el excel con los datos de las cuentas de las empresas        
     """
     df = pd.read_excel(path)
     df_bice = get_bankformat_from_bciformat(df, "bice")
@@ -298,11 +300,13 @@ def bci_to_bice_nomina(path, razonsocial_abreviatura):
     df_bice["oficina_destino"] = 1
     df_bice["mensaje_destinatario"] = df_bice["mensaje_destinatario"].str.replace(
         r'\W+', '', regex=True).apply(strip_accents)
+    
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
     df_bice.to_csv(path.parent.joinpath(
         f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_bice.csv"), header=False, sep=";", index=False)
 
 
-def bci_to_bancochile_nomina_transferencias(path, rut_empresa, razonsocial_abreviatura, path_to_datosempresas):
+def bci_to_bancochile_nomina_transferencias(path, rut_empresa, path_to_datosempresas):
     """
     Función que transforma una nómina en formato BCI al formato banco Transferencias Masivas del Banco de Chile.
 
@@ -312,8 +316,8 @@ def bci_to_bancochile_nomina_transferencias(path, rut_empresa, razonsocial_abrev
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    razonsocial_abreviatura : str
-        Abreviatura de la razón social de la empresa que está realizando la transferencia.
+    path_to_datosempresas : str
+        Ruta hacia el excel con los datos de las cuentas de las empresas  
     """
     re_express = re.compile("[^a-zA-Z.\d\s]")
     df = pd.read_excel(path)
@@ -362,11 +366,12 @@ def bci_to_bancochile_nomina_transferencias(path, rut_empresa, razonsocial_abrev
         df_output.email_destinatario.astype(str).str[:50].str.rjust(50, " ") + \
         df_output.cuenta_destino_tipo.astype(str)
 
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
     df_output['consolidado'].to_csv(path.parent.joinpath(
         f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_chilemasivas.txt"), header=False, index=False)
 
 
-def bci_to_bancochile_pagosmasivos(path, rut_empresa, razonsocial_abreviatura, convenio_pago, nombre_nomina):
+def bci_to_bancochile_pagosmasivos(path, rut_empresa, path_to_datosempresas, convenio_pago, nombre_nomina):
     """
     Función que transforma una nómina en formato BCI al formato banco Pagos Masivos del Banco de Chile.
 
@@ -376,10 +381,12 @@ def bci_to_bancochile_pagosmasivos(path, rut_empresa, razonsocial_abreviatura, c
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    razonsocial_abreviatura : str
-        Abreviatura de la razón social de la empresa que está realizando la transferencia.
+    path_to_datosempresas : str
+        Ruta hacia el excel con los datos de las cuentas de las empresas  
     convenio_pago : str
         Convenio de pago
+    nombre_nomina : str
+        Descripción breve nómina
     """
     df = pd.read_excel(path)
 
@@ -458,6 +465,7 @@ def bci_to_bancochile_pagosmasivos(path, rut_empresa, razonsocial_abreviatura, c
         df_chile_masivos["mensaje_destinatario"].str[:250].str.ljust(250, " ") + \
         " " * (2) + "000" + " " * 20
 
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
     with open(path.parent.joinpath(f"{PurePosixPath(path).stem}{razonsocial_abreviatura}chilemasivos.txt"), 'w') as f:
         f.write(encabezado)
         f.write('\n')

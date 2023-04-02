@@ -212,13 +212,10 @@ def btn_execution_function(path, rut_empresa, formato_requerido):
     try:
         path = Path(path)
         path_to_datosempresas = Path(entry_path_to_datosempresas.get())
-        razonsocial_abreviatura = bank_functions.get_razonsocial_abreviatura_from_rut(
-            rut_empresa, path_to_datosempresas)
         if check_if_company_has_bankaccount(rut_empresa, formato_requerido, path_to_datosempresas):
             if formato_requerido == "Banco Chile (Pagos Masivos)":
                 bank_functions.bci_to_bancochile_pagosmasivos(path,
                                                               rut_empresa,
-                                                              razonsocial_abreviatura,
                                                               combobox_conveniosempresa.get()[
                                                                   :3],
                                                               combobox_conveniosempresa.get()[
@@ -226,13 +223,13 @@ def btn_execution_function(path, rut_empresa, formato_requerido):
                                                               )
             elif formato_requerido == "Banco Chile (Transf. Masivas)":
                 bank_functions.bci_to_bancochile_nomina_transferencias(
-                    path, rut_empresa, razonsocial_abreviatura, path_to_datosempresas)
+                    path, rut_empresa, path_to_datosempresas)
             elif formato_requerido == "Santander (Transf. Masivas)":
                 bank_functions.bci_to_santander_transferenciasmasivas(
-                    path, rut_empresa, razonsocial_abreviatura, path_to_datosempresas)
+                    path, rut_empresa, path_to_datosempresas)
             elif formato_requerido == "BICE (nóminas)":
                 bank_functions.bci_to_bice_nomina(
-                    path, razonsocial_abreviatura,)
+                    path, rut_empresa, path_to_datosempresas)
             messagebox.showinfo("Info", "Planilla generada correctamente.")
     except Exception as e:
         messagebox.showerror(
