@@ -6,7 +6,7 @@ with Path(__file__).parent.joinpath("README.md").open(encoding="utf-8") as f:
     
 setup(
     name="conversor_nominas_bancos_chile",
-    version="1.7.8",
+    version="1.7.9",
     description="Librería que convierte el formato de nóminas del BCI al formato del resto de bancos.",
     author="Antonio Canada Momblant",
     author_email="toni.cm@gmail.com",
