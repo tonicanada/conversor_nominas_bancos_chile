@@ -237,11 +237,11 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempre
 
     Parameters:
     -----------
-    path : str
+    path : Path
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    path_to_datosempresas : str
+    path_to_datosempresas : Path
         Ruta hacia el excel con los datos de las cuentas de las empresas
     """
     df = pd.read_excel(path)
@@ -268,8 +268,6 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempre
     return df_santander
 
 
-# df = bci_to_santander_transferenciasmasivas("./planillas_test/20230324_nominabci.xls", "./planillas_test/20230324_nominabci.xls", "762345312-2", "tecton")
-
 
 def bci_to_bice_nomina(path, rut_empresa, path_to_datosempresas):
     """
@@ -277,11 +275,11 @@ def bci_to_bice_nomina(path, rut_empresa, path_to_datosempresas):
 
     Parameters:
     -----------
-    path : str
+    path : Path
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    path_to_datosempresas : str
+    path_to_datosempresas : Path
         Ruta hacia el excel con los datos de las cuentas de las empresas        
     """
     df = pd.read_excel(path)
@@ -312,11 +310,11 @@ def bci_to_bancochile_nomina_transferencias(path, rut_empresa, path_to_datosempr
 
     Parameters:
     -----------
-    path : str
+    path : Path
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    path_to_datosempresas : str
+    path_to_datosempresas : Path
         Ruta hacia el excel con los datos de las cuentas de las empresas  
     """
     re_express = re.compile("[^a-zA-Z.\d\s]")
@@ -377,11 +375,11 @@ def bci_to_bancochile_pagosmasivos(path, rut_empresa, path_to_datosempresas, con
 
     Parameters:
     -----------
-    path : str
+    path : Path
         Ruta hacia el excel con la nómina en formato BCI.
     rut_empresa : str
         Rut de la empresa origen que está realizando las transferencias.
-    path_to_datosempresas : str
+    path_to_datosempresas : Path
         Ruta hacia el excel con los datos de las cuentas de las empresas  
     convenio_pago : str
         Convenio de pago
