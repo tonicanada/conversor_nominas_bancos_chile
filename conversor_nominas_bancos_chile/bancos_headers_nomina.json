@@ -11,6 +11,10 @@
         "chile_transmasivas": {
             "id": 3,
             "name": "cuenta_cargo"
+        },
+        "itau": {
+            "id": 1,
+            "name": "cuenta_cargo"
         }
     },
     "cuenta_destino": {
@@ -33,6 +37,10 @@
         "chile_transmasivas": {
             "id": 6,
             "name": "cuenta_destino"
+        },
+        "itau": {
+            "id": 2,
+            "name": "numero_de_cuenta_abono"
         }
     },
     "banco_destino_codigo": {
@@ -55,6 +63,10 @@
         "chile_transmasivas": {
             "id": 7,
             "name": "banco_destino_rut_con_dv"
+        },
+        "itau": {
+            "id": 3,
+            "name": "codigo_banco_abono"
         }
     },
     "rut_beneficiario_sin_dv": {
@@ -89,6 +101,10 @@
         "chile_transmasivas": {
             "id": 4,
             "name": "rut_beneficiario_con_dv"
+        },
+        "itau": {
+            "id": 4,
+            "name": "rut_beneficiario_con_dv"
         }
     },
     "nombre_beneficiario": {
@@ -109,6 +125,10 @@
             "name": "nombre_beneficiario"
         },
         "chile_transmasivas": {
+            "id": 5,
+            "name": "nombre_beneficiario"
+        },
+        "itau": {
             "id": 5,
             "name": "nombre_beneficiario"
         }
@@ -133,6 +153,10 @@
         "chile_transmasivas": {
             "id": 8,
             "name": "monto_transferencia"
+        },
+        "itau": {
+            "id": 6,
+            "name": "monto_del_pago"
         }
     },
     "factura_boleta_num": {
@@ -151,6 +175,10 @@
         "BCI": {
             "id": 10,
             "name": "Tipo de Pago(2)"
+        },
+        "itau": {
+            "id": 7,
+            "name": "tipo_de_pago"
         }
     },
     "mensaje_destinatario": {
@@ -173,6 +201,10 @@
         "chile_transmasivas": {
             "id": 10,
             "name": "motivo_transferencia"
+        },
+        "itau": {
+            "id": 8,
+            "name": "detalle_del_pago"
         }
     },
     "email_destinatario": {
@@ -190,6 +222,10 @@
         },
         "chile_transmasivas": {
             "id": 13,
+            "name": "email_destinatario"
+        },
+        "itau": {
+            "id": 9,
             "name": "email_destinatario"
         }
     },
@@ -227,6 +263,10 @@
         "chile_transmasivas": {
             "id": 2,
             "name": "rut_cliente"
+        },
+        "itau":{
+            "id": 10,
+            "name": "rut_empresa"
         }
     },
     "convenio_numero": {
@@ -249,6 +289,10 @@
         "chile_transmasivas": {
             "id": 1,
             "name": "tipo_operacion"
+        },
+        "itau": {
+            "id": 11,
+            "name": "metodo_de_pago"
         }
     },
     "tipo_direccion": {
@@ -323,6 +367,10 @@
         "santander": {
             "id": 13,
             "name": "Glosa Cartola Beneficiario"
+        },
+        "itau": {
+            "id": 12,
+            "name": "glosa_cuenta_destino"
         }
     },
     "cuenta_destino_tipo": {
@@ -333,6 +381,10 @@
         "chile_transmasivas": {
             "id": 14,
             "name": "cuenta_destino_tipo"
+        },
+        "itau": {
+            "id": 13,
+            "name": "tipo_de_cuenta_abono"
         }
     },
     "oficina_origen": {
@@ -357,6 +409,96 @@
         "chile_transmasivas": {
             "id": 11,
             "name": "notificacion_por_email"
+        }
+    },
+    "cantidad_registros": {
+        "itau": {
+            "id": 14,
+            "name": "Cantidad Registros"
+        }
+    },
+    "suma__total_registros": {
+        "itau": {
+            "id": 15,
+            "name": "suma_registros"
+        }
+    },
+    "medio_respaldo": {
+        "itau": {
+            "id": 16,
+            "name": "medio_respaldo"
+        }
+    },
+    "descripcion": {
+        "itau": {
+            "id": 17,
+            "name": "descripcion"
+        }
+    },
+    "glosa_cuenta_cargo": {
+        "itau": {
+            "id": 18,
+            "name": "glosa_cuenta_cargo"
+        }
+    },
+    "glosa_cuenta_abono": {
+        "itau": {
+            "id": 19,
+            "name": "glosa_cuenta_abono"
+        }
+    },
+    "fecha_de_pago": {
+        "itau": {
+            "id": 20,
+            "name": "Fecha de Pago"
+        }
+    },
+    "referencia_1": {
+        "itau": {
+            "id": 21,
+            "name": "Referencia1"
+        }
+    },
+    "referencia_2": {
+        "itau": {
+            "id": 22,
+            "name": "Referencia2"
+        }
+    },
+    "medio_de_respaldo": {
+        "itau": {
+            "id": 23,
+            "name": "Medio de Respaldo"
+        }
+    },
+    "nro_medio_respaldo": {
+        "itau": {
+            "id": 24,
+            "name": "Nro Medio Respaldo"
+        }
+    },
+    "codigo_sucursal": {
+        "itau": {
+            "id": 25,
+            "name": "Código Sucursal"
+        }
+    },
+    "referencia_cliente": {
+        "itau": {
+            "id": 26,
+            "name": "Referencia Cliente"
+        }
+    },
+    "detalle_del_pago": {
+        "itau": {
+            "id": 27,
+            "name": "Detalle del Pago"
+        }
+    },
+    "glosa_cuenta_origen": {
+        "itau": {
+            "id": 28,
+            "name": "Glosa Cuenta Origen"
         }
     }
 }
