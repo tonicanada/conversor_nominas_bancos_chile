@@ -6,10 +6,26 @@ from datetime import date
 import glob
 import unicodedata
 from pathlib import PurePosixPath
+import sys
 
 
 import os
 path_abs = os.path.dirname(__file__)
+
+
+# Usamos esta función debido a como pyinstaller compila el ejecutable
+# hace que la carpeta de trabajo sea una carpeta temporal y no la carpeta actual 
+def get_script_folder():
+    # path of main .py or .exe when converted with pyinstaller
+    if getattr(sys, 'frozen', False):
+        script_path = os.path.dirname(sys.executable)
+    else:
+        script_path = os.path.dirname(
+            os.path.abspath(sys.modules['__main__'].__file__)
+        )
+    return script_path
+
+
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
@@ -17,13 +33,13 @@ pd.set_option("display.max_columns", None)
 # with open(os.path.join(path_abs, 'bancos_codigos.json'), encoding="utf-8") as f:
 #     bancos_codigos = json.load(f)
 
-with open(os.path.join(os.path.dirname(__file__), 'bancos_codigos.json'), encoding='utf-8') as f:
+with open(os.path.join(get_script_folder(), 'bancos_codigos.json'), encoding='utf-8') as f:
     bancos_codigos = json.loads(f.read())
 
 # Importa como diccionario los distintos encabezados que tienen las nóminas de los diferentes bancos de Chile.
 # with open(os.path.join(path_abs, 'bancos_headers_nomina.json'), encoding="utf-8") as f:
 #     dict_encabezados_nominas_banco = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'bancos_headers_nomina.json'), encoding='utf-8') as f:
+with open(os.path.join(get_script_folder(), 'bancos_headers_nomina.json'), encoding='utf-8') as f:
     dict_encabezados_nominas_banco = json.loads(f.read())
 
 
@@ -269,6 +285,29 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempre
     return df_santander
 
 
+def bci_to_banco_internacional(path, rut_empresa, path_to_datosempresas):
+    
+    df = pd.read_excel(path)
+    
+    df_internacional = get_bankformat_from_bciformat(df, "internacional")
+    
+    rel_colcode_to_colbci = get_relation_columncode_columnbank(
+        "BCI", dict_encabezados_nominas_banco
+    )
+    
+    
+    df_internacional["rut_destinatario"] = df[rel_colcode_to_colbci["rut_beneficiario_sin_dv"]].astype(str) + df[
+        rel_colcode_to_colbci["rut_beneficiario_dv"]].astype(str).str.lower()
+    df_internacional["tipo_cuenta"] = 1
+    
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
+    
+    df_internacional.to_excel(path.parent.joinpath(
+        f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_internacional.xlsx"), index=False)
+    
+    return df_internacional
+    
+
 
 def bci_to_itau_nomina(path, rut_empresa, path_to_datosempresas):
     """
@@ -388,7 +427,7 @@ def bci_to_itau_nomina(path, rut_empresa, path_to_datosempresas):
                 f"{glosa_cuenta_cargo},{glosa_cuenta_abono}"
 
     
-    with open(path.parent.joinpath(f"{PurePosixPath(path).stem}{razonsocial_abreviatura}chilemasivos.txt"), 'w') as f:
+    with open(path.parent.joinpath(f"{PurePosixPath(path).stem}{razonsocial_abreviatura}itaunel.txt"), 'w') as f:
         f.write(encabezado)
         f.write('\n')
         for i in range(len(df_itau)):

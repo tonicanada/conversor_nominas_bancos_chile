@@ -41,6 +41,10 @@
         "itau": {
             "id": 2,
             "name": "numero_de_cuenta_abono"
+        },
+        "internacional": {
+            "id": 3,
+            "name": "cuenta_destinatario"
         }
     },
     "banco_destino_codigo": {
@@ -67,6 +71,10 @@
         "itau": {
             "id": 3,
             "name": "codigo_banco_abono"
+        },
+        "internacional": {
+            "id": 6,
+            "name": "codigo_banco"
         }
     },
     "rut_beneficiario_sin_dv": {
@@ -105,6 +113,10 @@
         "itau": {
             "id": 4,
             "name": "rut_beneficiario_con_dv"
+        },
+        "internacional": {
+            "id": 1,
+            "name": "rut_destinatario"
         }
     },
     "nombre_beneficiario": {
@@ -131,6 +143,10 @@
         "itau": {
             "id": 5,
             "name": "nombre_beneficiario"
+        },
+        "internacional": {
+            "id": 2,
+            "name": "nombre_destinatario"
         }
     },
     "monto_transferencia": {
@@ -157,6 +173,10 @@
         "itau": {
             "id": 6,
             "name": "monto_del_pago"
+        },
+        "internacional": {
+            "id": 4,
+            "name": "monto"
         }
     },
     "factura_boleta_num": {
@@ -205,6 +225,10 @@
         "itau": {
             "id": 8,
             "name": "detalle_del_pago"
+        },
+        "internacional": {
+            "id": 8,
+            "name": "motivo"
         }
     },
     "email_destinatario": {
@@ -227,6 +251,10 @@
         "itau": {
             "id": 9,
             "name": "email_destinatario"
+        },
+        "internacional": {
+            "id": 7,
+            "name": "correo_destinatario"
         }
     },
     "alias": {
@@ -385,6 +413,10 @@
         "itau": {
             "id": 13,
             "name": "tipo_de_cuenta_abono"
+        },
+        "internacional": {
+            "id": 5,
+            "name": "tipo_cuenta"
         }
     },
     "oficina_origen": {
