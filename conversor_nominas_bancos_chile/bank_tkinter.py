@@ -26,6 +26,12 @@ formatobanco_dict = {
     },
     "BICE (nóminas)": {
         "banco_codigo": 28
+    },
+    "Itau (NEL)": {
+        "banco_codigo": 39
+    },
+    "Banco Internacional": {
+        "banco_codigo": 9
     }
 
 }
@@ -210,7 +216,6 @@ def btn_execution_function(path, rut_empresa, formato_requerido):
     Esta función es la que llama a la función correspondiente del archivo 'bank_functions.py'
     para obtener la nómina en la que el usuario ha indicado que necesita.
     """
-    # try:
     path = Path(path)
     path_to_datosempresas = Path(entry_path_to_datosempresas.get())
     if check_if_company_has_bankaccount(rut_empresa, formato_requerido, path_to_datosempresas):
@@ -232,10 +237,14 @@ def btn_execution_function(path, rut_empresa, formato_requerido):
         elif formato_requerido == "BICE (nóminas)":
             bank_functions.bci_to_bice_nomina(
                 path, rut_empresa, path_to_datosempresas)
+        elif formato_requerido == "Itau (NEL)":
+            bank_functions.bci_to_itau_nomina(
+                path, rut_empresa, path_to_datosempresas)
+        elif formato_requerido == "Banco Internacional":
+            bank_functions.bci_to_banco_internacional(
+                path, rut_empresa, path_to_datosempresas)
+            
         messagebox.showinfo("Info", "Planilla generada correctamente.")
-    # except Exception as e:
-    #     messagebox.showerror(
-    #         "Error", f"Favor revise que estén completos todos los campos.")
 
 
 def get_bottom_coordinate_from_widget(widget):

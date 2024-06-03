@@ -6,23 +6,40 @@ from datetime import date
 import glob
 import unicodedata
 from pathlib import PurePosixPath
+import sys
 
 
 import os
 path_abs = os.path.dirname(__file__)
 
 
+# Usamos esta función debido a como pyinstaller compila el ejecutable
+# hace que la carpeta de trabajo sea una carpeta temporal y no la carpeta actual 
+def get_script_folder():
+    # path of main .py or .exe when converted with pyinstaller
+    if getattr(sys, 'frozen', False):
+        script_path = os.path.dirname(sys.executable)
+    else:
+        script_path = os.path.dirname(
+            os.path.abspath(sys.modules['__main__'].__file__)
+        )
+    return script_path
+
+
+pd.set_option("display.max_rows", None)
+pd.set_option("display.max_columns", None)
+
 # Importa como diccionario los datos de los bancos de Chile
 # with open(os.path.join(path_abs, 'bancos_codigos.json'), encoding="utf-8") as f:
 #     bancos_codigos = json.load(f)
 
-with open(os.path.join(os.path.dirname(__file__), 'bancos_codigos.json'), encoding='utf-8') as f:
+with open(os.path.join(get_script_folder(), 'bancos_codigos.json'), encoding='utf-8') as f:
     bancos_codigos = json.loads(f.read())
 
 # Importa como diccionario los distintos encabezados que tienen las nóminas de los diferentes bancos de Chile.
 # with open(os.path.join(path_abs, 'bancos_headers_nomina.json'), encoding="utf-8") as f:
 #     dict_encabezados_nominas_banco = json.load(f)
-with open(os.path.join(os.path.dirname(__file__), 'bancos_headers_nomina.json'), encoding='utf-8') as f:
+with open(os.path.join(get_script_folder(), 'bancos_headers_nomina.json'), encoding='utf-8') as f:
     dict_encabezados_nominas_banco = json.loads(f.read())
 
 
@@ -217,7 +234,7 @@ def get_bankformat_from_bciformat(df_bcinomina, bankformat):
         "BCI", dict_encabezados_nominas_banco)
     rel_colcode_to_colsantander = get_relation_columncode_columnbank(
         bankformat, dict_encabezados_nominas_banco)
-
+    
     for column in df_bcinomina:
         colcode = rel_colbci_to_colcode[column]
         if bankformat in dict_encabezados_nominas_banco[colcode].keys():
@@ -268,6 +285,160 @@ def bci_to_santander_transferenciasmasivas(path, rut_empresa, path_to_datosempre
     return df_santander
 
 
+def bci_to_banco_internacional(path, rut_empresa, path_to_datosempresas):
+    
+    df = pd.read_excel(path)
+    
+    df_internacional = get_bankformat_from_bciformat(df, "internacional")
+    
+    rel_colcode_to_colbci = get_relation_columncode_columnbank(
+        "BCI", dict_encabezados_nominas_banco
+    )
+    
+    
+    df_internacional["rut_destinatario"] = df[rel_colcode_to_colbci["rut_beneficiario_sin_dv"]].astype(str) + df[
+        rel_colcode_to_colbci["rut_beneficiario_dv"]].astype(str).str.lower()
+    df_internacional["tipo_cuenta"] = 1
+    
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
+    
+    df_internacional.to_excel(path.parent.joinpath(
+        f"{PurePosixPath(path).stem}_{razonsocial_abreviatura}_internacional.xlsx"), index=False)
+    
+    return df_internacional
+    
+
+
+def bci_to_itau_nomina(path, rut_empresa, path_to_datosempresas):
+    """
+    Función que transforma una nómina en formato BCI al formato banco NEL del Banco Itau.
+
+    Parameters:
+    -----------
+    path : Path
+        Ruta hacia el excel con la nómina en formato BCI.
+    rut_empresa : str
+        Rut de la empresa origen que está realizando las transferencias.
+    path_to_datosempresas : Path
+        Ruta hacia el excel con los datos de las cuentas de las empresas  
+    """
+    
+    df = pd.read_excel(path)
+    
+    
+    # largos especificados por el instructivo
+    largos_campos_cabecera = [11, 10, 15, 10, 30, 10, 40, 20, 20]
+    largos_campos_registros = [11, 250, 200, 30, 3, 15, 50, 15, 30, 10, 3, 40, 100, 20, 20]
+    
+    #nombres de los campos de registros utilizados para verificar el largo de cada campo
+    nombres_campos_registros = [
+        "rut_beneficiario_con_dv",
+        "nombre_beneficiario",
+        "email_beneficiario",
+        "metodo_de_pago",
+        "codigo_banco_abono",
+        "tipo_de_cuenta_abono",
+        "numero_de_cuenta_abono",
+        "monto_del_pago",
+        "medio_de_respaldo",
+        "nro_medio_respaldo",
+        "codigo_sucursal",
+        "referencia_cliente",
+        "detalle_del_pago",
+        "glosa_cuenta_origen",
+        "glosa_cuenta_destino",
+    ]
+    razonsocial_abreviatura = get_razonsocial_abreviatura_from_rut(rut_empresa, path_to_datosempresas)
+    
+    # Generación de cabecera (suma de registros lo dejamos 
+    # en 0 hasta obtener todos los registros y hacer la suma correspondiente)
+    cuenta_de_cargo = get_bankaccount_from_rut_and_bancocodigo(
+        rut_empresa, 39, path_to_datosempresas)
+    rut_empresa = rut_empresa.replace(".", "").replace(
+        "-", "").upper().rjust(9, "0")[:9]
+    cantidad_registros = str(len(df))
+    tipo_servicio = "005003"
+    medio_respaldo = "CAT_CSH_CONTRACT_ACCOUNT"
+    suma_registros = str(0)
+    descripcion = ""
+    glosa_cuenta_cargo = ""
+    glosa_cuenta_abono = ""
+    campos_cabecera = [
+        rut_empresa, 
+        cantidad_registros, 
+        suma_registros,
+        tipo_servicio,
+        medio_respaldo,
+        str(cuenta_de_cargo),
+        descripcion,
+        glosa_cuenta_cargo,
+        glosa_cuenta_abono
+    ]
+    
+    # Verificamos que cada campo de la cabecera no exceda el largo especificado
+    for campo, largo in zip(campos_cabecera, largos_campos_cabecera):
+        if len(campo) > largo:
+            raise Exception(f"valor {campo} en cabecera excede el largo {largo}")
+    
+    # Generación del cuerpo del archivo correspondiente a los registros
+    df_itau = get_bankformat_from_bciformat(df, "itau")
+    
+    # A partir de aquí se completan las columnas NaN y se aplica el formato requerido
+    # por el banco
+    df_itau["rut_beneficiario_con_dv"] = df["Rut Beneficiario"].astype(str) + df["Dig. Verif. Beneficiario"].astype(str)
+    df_itau["email_beneficiario"] = df_itau["email_destinatario"]
+    df_itau["metodo_de_pago"] = "CAT_CSH_TRANSFER"
+    df_itau["tipo_de_cuenta_abono"] = "CAT_CSH_CCTE"
+    df_itau["fecha_de_pago"] = ""
+    df_itau["referencia1"] = ""
+    df_itau["referencia2"] = ""
+    df_itau["medio_de_respaldo"] = "CAT_CSH_CCTE"
+    df_itau["nro_medio_respaldo"] = str(cuenta_de_cargo)
+    df_itau["codigo_sucursal"] = ""
+    df_itau["referencia_cliente"] = ""
+    df_itau["glosa_cuenta_origen"] = ""
+    df_itau["glosa_cuenta_destino"] = ""
+    
+    for i in range(len(df_itau)):
+        number = df_itau.iloc[i]["codigo_banco_abono"]
+        if len(str(number)) == 1:
+            df_itau.iloc[i, df_itau.columns.get_loc("codigo_banco_abono")] = f"00{number}"
+        elif len(str(number)) == 2:
+            df_itau.iloc[i, df_itau.columns.get_loc("codigo_banco_abono")] = f"0{number}"
+    
+    
+    # Verificamos que cada campo no exceda el largo especificado
+    for i in range(len(df_itau)):
+        for name, length in zip(nombres_campos_registros, largos_campos_registros):
+            if pd.isna(df_itau.iloc[i][name]) is True:
+                df_itau.iloc[i, df_itau.columns.get_loc(name)] = ""
+            else:    
+                if (len(str(df_itau.iloc[i][name])) > length):
+                    raise Exception(f"El valor de {df_itau.iloc[i][name]} en registros excede el largo {length}")
+    
+    nombres_campos_registros.insert(7, "fecha_de_pago")
+    nombres_campos_registros.insert(8, "referencia1")
+    nombres_campos_registros.insert(9, "referencia2")
+    
+    suma_registros = df_itau["monto_del_pago"].sum()
+    
+    encabezado = f"{rut_empresa},{cantidad_registros},{suma_registros}," \
+                f"{tipo_servicio},{medio_respaldo},{cuenta_de_cargo},{descripcion}," \
+                f"{glosa_cuenta_cargo},{glosa_cuenta_abono}"
+
+    
+    with open(path.parent.joinpath(f"{PurePosixPath(path).stem}{razonsocial_abreviatura}itaunel.txt"), 'w') as f:
+        f.write(encabezado)
+        f.write('\n')
+        for i in range(len(df_itau)):
+            for name in nombres_campos_registros:
+                if name == "glosa_cuenta_destino":
+                    f.write(f"{df_itau.iloc[i][name]}")
+                else:    
+                    f.write(f"{df_itau.iloc[i][name]},")
+            f.write('\n')
+        f.close()
+    
 
 def bci_to_bice_nomina(path, rut_empresa, path_to_datosempresas):
     """

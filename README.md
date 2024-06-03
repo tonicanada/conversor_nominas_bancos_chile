@@ -7,7 +7,7 @@ Ejecutar `pip install conversor_nominas_bancos_chile`
 Para abrir la interfaz basta con ejecutar el siguiente comando desde la terminal: `start_menu_conversor_nominas`
 
 Se debe tener en cuenta lo siguiente:
-* Está pendiente implementar la transformación de nóminas a otros bancos que no sean Banco de Chile, Santander, BICE.
+* Está pendiente implementar la transformación de nóminas a otros bancos que no sean Banco de Chile, Santander, BICE, Itau e Internacional.
 * Se requiere crear un archivo excel con los datos de las cuentas corrientes de las empresas desde donde se realizarán las transferencias, se puede llamar "datos_empresas.xlsx" y tiene el siguiente formato:
 
 | razonsocial                              | razonsocial_abreviatura   | rut         |   banco_codigo |   cuenta_num | convenios_pagos_masivos_bancochile                |
